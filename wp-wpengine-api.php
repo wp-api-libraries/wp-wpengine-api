@@ -38,7 +38,7 @@ if ( ! class_exists( 'WPWPengineAPI' ) ) {
 		 * @var string
 		 */
 		protected $username;
-    
+
     /**
 		 * Basic auth password.
 		 *
@@ -156,23 +156,23 @@ if ( ! class_exists( 'WPWPengineAPI' ) ) {
 		/*****************************************************************************************
 											Status
 		******************************************************************************************/
-		
+
 		public function get_api_status() {
 			return $this->build_request( "status" )->fetch();
 		}
-		
+
 		/*****************************************************************************************
 											Swagger
 		******************************************************************************************/
-		
+
 		public function get_swagger_spec() {
 			return $this->build_request( "swagger" )->fetch();
 		}
-		
+
 		/*****************************************************************************************
 		                  Accounts
 		******************************************************************************************/
-		
+
 		/**
 		 * List your WP Engine accounts
 		 *
@@ -184,34 +184,34 @@ if ( ! class_exists( 'WPWPengineAPI' ) ) {
 		public function get_accounts( $args = array() ) {
 			return $this->build_request( "accounts", $args )->fetch();
 		}
-		
+
 		/**
 		 * Get an account by ID
-		 * 
+		 *
 		 * @param  string $id Account ID
 		 * @return mixed      Returns a single Account
 		 */
 		public function get_account_by_id( $id ){
 			return $this->build_request( "accounts/$id" )->fetch();
 		}
-		
+
 		/*****************************************************************************************
 											Sites
 		******************************************************************************************/
-		
+
 		/**
 		 * List your sites
-		 * 
+		 *
 		 * @param  array  $args Additional arguments
 		 * @return mixed        List of sites
 		 */
 		public function get_sites( $args = array()){
 			return $this->build_request( "sites", $args )->fetch();
 		}
-		
+
 		/**
 		 * Create a new site
-		 * 
+		 *
 		 * @param  string $name       The name of the site.
 		 * @param  string $account_id The ID of the account that the site will belong to.
 		 * @return mixed              The new site info.
@@ -220,20 +220,20 @@ if ( ! class_exists( 'WPWPengineAPI' ) ) {
 			$args = compact( $name, $account_id );
 			return $this->build_request( "sites", $args, 'POST' )->fetch();
 		}
-		
+
 		/**
 		 * Get a site by ID
-		 * 
+		 *
 		 * @param  string $id The site ID.
 		 * @return mixed      Returns a single site
 		 */
 		public function get_site_by_id( $id ){
 			return $this->build_request( "sites/$id" )->fetch();
 		}
-		
+
 		/**
 		 * Change a sites name.
-		 * 
+		 *
 		 * @param  string $id   The ID of the site to change the name of (For accounts with sites enabled).
 		 * @param  string $name The new name for the site.
 		 * @return mixed        The new site data.
@@ -242,35 +242,34 @@ if ( ! class_exists( 'WPWPengineAPI' ) ) {
 			$args = compact( $name );
 			return $this->build_request( "sites/$id", $args, 'PATCH' )->fetch();
 		}
-		
+
 		/**
 		 * This will delete the site and any installs associated with this site. This delete is permanent and there is no confirmation prompt.
-		 * 
+		 *
 		 * @param  string $id The ID of the site to delete (For accounts with sites enabled).
 		 * @return string     Deleted
 		 */
 		public function delete_site( $id ){
-			$args = compact( $name );
 			return $this->build_request( "sites/$id", array(), 'DELETE' )->fetch();
 		}
-		
+
 		/*****************************************************************************************
 											Installs
 		******************************************************************************************/
-		
+
 		/**
 		 * List your WordPress installations
-		 * 
+		 *
 		 * @param  array  $args Additional query arguments.
 		 * @return mixed        List of wordpress installs.
 		 */
 		public function get_installs( $args = array()){
 			return $this->build_request( "installs", $args )->fetch();
 		}
-		
+
 		/**
 		 * Create a new WordPress installation
-		 * 
+		 *
 		 * @param  string $name        The name of the install.
 		 * @param  string $account_id  The ID of the account that the install will belong to.
 		 * @param  string $site_id     The ID of the site that the install will belong to.
@@ -281,20 +280,20 @@ if ( ! class_exists( 'WPWPengineAPI' ) ) {
 			$args = compact( $name, $account_id , $site_id, $environment );
 			return $this->build_request( "installs", $args, 'POST' )->fetch();
 		}
-		
+
 		/**
 		 * Get an install by ID.
-		 * 
+		 *
 		 * @param  string $id Install ID.
 		 * @return mixed      Returns a single Install
 		 */
 		public function get_install_by_id( $id ){
 			return $this->build_request( "installs/$id" )->fetch();
 		}
-		
+
 		/**
 		 * Update a WordPress installation
-		 * 
+		 *
 		 * @param  string $install_id Install ID.
 		 * @param  array  $args       Fields to update.
 		 * @return mixed              Updated install info
@@ -302,25 +301,24 @@ if ( ! class_exists( 'WPWPengineAPI' ) ) {
 		public function update_install( $install_id, $args ){
 			return $this->build_request( "installs/$install_id", $args, 'PATCH' )->fetch();
 		}
-		
+
 		/**
 		 * Delete an install by ID
-		 * 
+		 *
 		 * @param  string $id Install ID.
 		 * @return mixed      Deleted
 		 */
 		public function delete_install( $id ){
-			$args = compact( $name );
 			return $this->build_request( "installs/$id", array(), 'DELETE' )->fetch();
 		}
-		
+
 		/*****************************************************************************************
 											Domains
 		******************************************************************************************/
-		
+
 		/**
 		 * Get the domains for an install by install id.
-		 * 
+		 *
 		 * @param  string $install_id Install ID.
 		 * @param  array  $args       Additional query arguments.
 		 * @return mixed              Returns domains for a specific install
@@ -328,10 +326,10 @@ if ( ! class_exists( 'WPWPengineAPI' ) ) {
 		public function get_domains( $install_id, $args = array()){
 			return $this->build_request( "installs/$install_id/domains", $args )->fetch();
 		}
-		
+
 		/**
 		 * Add a new domain to an existing install.
-		 * 
+		 *
 		 * @param  string  $install_id ID of install.
 		 * @param  string  $name       The name of the new domain.
 		 * @param  boolean $primary    Sets the domain as the primary domain on the install.
@@ -341,10 +339,10 @@ if ( ! class_exists( 'WPWPengineAPI' ) ) {
 			$args = compact( $name, $primary );
 			return $this->build_request( "installs/$install_id/domains", $args, 'POST' )->fetch();
 		}
-		
+
 		/**
 		 * Get a specific domain for an install
-		 * 
+		 *
 		 * @param  string $install_id ID of install.
 		 * @param  string $domain_id  ID of domain.
 		 * @return mixed              Returns specific domain for an install.
@@ -352,44 +350,42 @@ if ( ! class_exists( 'WPWPengineAPI' ) ) {
 		public function get_domain_by_id( $install_id, $domain_id ){
 			return $this->build_request( "installs/$install_id/domains/$domain_id" )->fetch();
 		}
-		
+
 		/**
 		 * Set an existing domain as primary.
-		 * 
+		 *
 		 * @param  string $install_id ID of install.
 		 * @param  string $domain_id  ID of domain.
 		 * @param  array  $args       Fields to update.
 		 * @return mixed              Updated domain info.
 		 */
 		public function update_domain( $install_id, $domain_id, $args ){
-			$args = compact( $name );
 			return $this->build_request( "installs/$install_id/domains/$domain_id", $args, 'PATCH' )->fetch();
 		}
-		
+
 		/**
 		 * Delete a specific domain for an install.
-		 * 
+		 *
 		 * @param  string $install_id ID of install.
 		 * @param  string $domain_id  ID of domain.
 		 * @return mixed              Deleted.
 		 */
 		public function delete_domain( $install_id, $domain_id ){
-			$args = compact( $name );
 			return $this->build_request( "installs/$install_id/domains/$domain_id", array(), 'DELETE' )->fetch();
 		}
-		
+
 		/*****************************************************************************************
 											User
 		******************************************************************************************/
-		
+
 		/**
 		 * Get the current user.
-		 * 
+		 *
 		 * @return mixed Returns the currently authenticated user
 		 */
 		public function get_user(){
 			return $this->build_request( "user" )->fetch();
 		}
-		
+
 	}
 }
